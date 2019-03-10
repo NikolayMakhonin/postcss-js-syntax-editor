@@ -85,6 +85,7 @@ module.exports = {
 		})
 	},
 	postCss: (options = {}) => postcss(postcssCommon({
+		extensions: ['.jss', '.scss', '.sass', '.less', '.styl'],
 		sourceMap: false, // 'inline',
 		extract  : 'static/styles.css',
 		...options

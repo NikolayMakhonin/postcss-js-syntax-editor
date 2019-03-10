@@ -17,8 +17,8 @@ export default {
 				'process.browser'     : true,
 				'process.env.NODE_ENV': JSON.stringify(mode)
 			}),
-			rollupPlugins.svelte.client(),
 			rollupPlugins.postCss(),
+			rollupPlugins.svelte.client(),
 			rollupPlugins.nodeResolve(),
 			rollupPlugins.commonjs(),
 			legacy && rollupPlugins.babel(),
@@ -35,8 +35,8 @@ export default {
 				'process.browser'     : false,
 				'process.env.NODE_ENV': JSON.stringify(mode)
 			}),
-			rollupPlugins.svelte.server(),
 			rollupPlugins.postCss(),
+			rollupPlugins.svelte.server(),
 			rollupPlugins.nodeResolve(),
 			rollupPlugins.commonjs(),
 		],

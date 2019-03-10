@@ -1,10 +1,23 @@
+h1.svelte-18n1fgv{font-size:1em;color:black;padding:0;margin:0}nav.svelte-18n1fgv{border-bottom:1px solid rgba(170,30,30,0.1);font-weight:300;padding:0 1em}ul.svelte-18n1fgv{margin:0;padding:0}ul.svelte-18n1fgv::after{content:'';display:block;clear:both}li.svelte-18n1fgv{display:block;float:left}.selected.svelte-18n1fgv{position:relative;display:inline-block}.selected.svelte-18n1fgv::after{position:absolute;content:'';width:calc(100% - 1em);height:2px;background-color:rgb(170,30,30);display:block;bottom:-1px}a.svelte-18n1fgv{text-decoration:none;padding:1em 0.5em;display:block}
+main.svelte-vxf4f5{position:absolute;top:3.1em;left:0;right:0;bottom:0;margin:0 auto;box-sizing:border-box}
+h1.svelte-zwt8wo,p.svelte-zwt8wo{margin:0 auto}h1.svelte-zwt8wo{font-size:2.8em;font-weight:700;margin:0 0 0.5em 0}p.svelte-zwt8wo{margin:1em auto}@media(min-width: 480px){h1.svelte-zwt8wo{font-size:4em}}
 /* BASICS */
 
 .CodeMirror {
+	/* copied colors over from prism */
+	--background: var(--back-light);
+	--base:       hsl(45, 7%, 45%);
+	--comment:    hsl(210, 25%, 60%);
+	--keyword:    hsl(204, 58%, 45%);
+	--function:   hsl(19, 67%, 45%);
+	--string:     hsl(41, 37%, 45%);
+	--number:     hsl(102, 27%, 50%);
+	--tags:       var(--function);
+	--important:  var(--string);
+
   /* Set height, width, borders, and global font properties here */
-  font-family: monospace;
+  /* see prism.css */
   height: 300px;
-  color: black;
   direction: ltr;
 }
 
@@ -25,16 +38,16 @@
 
 .CodeMirror-gutters {
   border-right: 1px solid #ddd;
-  background-color: #f7f7f7;
+  background-color: var(--back-light);
   white-space: nowrap;
 }
-.CodeMirror-linenumbers {}
 .CodeMirror-linenumber {
   padding: 0 3px 0 5px;
   min-width: 20px;
   text-align: right;
-  color: #999;
+  color: var(--comment);
   white-space: nowrap;
+  opacity: .6;
 }
 
 .CodeMirror-guttermarker { color: black; }
@@ -60,7 +73,7 @@
   z-index: 1;
 }
 .cm-fat-cursor-mark {
-  background-color: rgba(20, 255, 20, 0.5);
+  background-color: rgba(20, 255, 20, .5);
   -webkit-animation: blink 1.06s steps(1) infinite;
   -moz-animation: blink 1.06s steps(1) infinite;
   animation: blink 1.06s steps(1) infinite;
@@ -89,9 +102,6 @@
   100% {}
 }
 
-/* Can style cursor different in overwrite (non-insert) mode */
-.CodeMirror-overwrite .CodeMirror-cursor {}
-
 .cm-tab { display: inline-block; text-decoration: inherit; }
 
 .CodeMirror-rulers {
@@ -106,40 +116,39 @@
 }
 
 /* DEFAULT THEME */
+.cm-s-default .cm-header {color: blue}
+.cm-s-default .cm-quote {color: #090}
+.cm-negative {color: #d44}
+.cm-positive {color: #292}
+.cm-header, .cm-strong {font-weight: bold}
+.cm-em {font-style: italic}
+.cm-link {text-decoration: underline}
+.cm-strikethrough {text-decoration: line-through}
 
-.cm-s-default .cm-header {color: blue;}
-.cm-s-default .cm-quote {color: #090;}
-.cm-negative {color: #d44;}
-.cm-positive {color: #292;}
-.cm-header, .cm-strong {font-weight: bold;}
-.cm-em {font-style: italic;}
-.cm-link {text-decoration: underline;}
-.cm-strikethrough {text-decoration: line-through;}
-
-.cm-s-default .cm-keyword {color: #708;}
-.cm-s-default .cm-atom {color: #219;}
-.cm-s-default .cm-number {color: #164;}
-.cm-s-default .cm-def {color: #00f;}
-.cm-s-default .cm-variable,
-.cm-s-default .cm-punctuation,
+.cm-s-default .cm-atom,
+.cm-s-default .cm-def,
 .cm-s-default .cm-property,
-.cm-s-default .cm-operator {}
-.cm-s-default .cm-variable-2 {color: #05a;}
-.cm-s-default .cm-variable-3, .cm-s-default .cm-type {color: #085;}
-.cm-s-default .cm-comment {color: #a50;}
-.cm-s-default .cm-string {color: #a11;}
-.cm-s-default .cm-string-2 {color: #f50;}
-.cm-s-default .cm-meta {color: #555;}
-.cm-s-default .cm-qualifier {color: #555;}
-.cm-s-default .cm-builtin {color: #30a;}
-.cm-s-default .cm-bracket {color: #997;}
-.cm-s-default .cm-tag {color: #170;}
-.cm-s-default .cm-attribute {color: #00c;}
-.cm-s-default .cm-hr {color: #999;}
-.cm-s-default .cm-link {color: #00c;}
+.cm-s-default .cm-variable-2,
+.cm-s-default .cm-variable-3,
+.cm-s-default .cm-punctuation {color: var(--base)}
+.cm-s-default .cm-hr,
+.cm-s-default .cm-comment {color: var(--comment)}
+.cm-s-default .cm-attribute,
+.cm-s-default .cm-keyword {color: var(--keyword)}
+.cm-s-default .cm-variable,
+.cm-s-default .cm-bracket,
+.cm-s-default .cm-tag {color: var(--tags)}
+.cm-s-default .cm-number {color: var(--number)}
+.cm-s-default .cm-string {color: var(--string)}
 
-.cm-s-default .cm-error {color: #f00;}
-.cm-invalidchar {color: #f00;}
+.cm-s-default .cm-string-2 {color: #f50}
+.cm-s-default .cm-type {color: #085}
+.cm-s-default .cm-meta {color: #555}
+.cm-s-default .cm-qualifier {color: #555}
+.cm-s-default .cm-builtin {color: #30a}
+.cm-s-default .cm-link {color: var(--flash)}
+.cm-s-default .cm-error {color: #ff008c}
+.cm-invalidchar {color: #ff008c}
 
 .CodeMirror-composing { border-bottom: 2px solid; }
 
@@ -270,10 +279,8 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #a22;}
 .CodeMirror-linewidget {
   position: relative;
   z-index: 2;
-  padding: 0.1px; /* Force widget margins to stay inside of the container */
+  padding: .1px; /* Force widget margins to stay inside of the container */
 }
-
-.CodeMirror-widget {}
 
 .CodeMirror-rtl pre { direction: rtl; }
 
@@ -344,3 +351,5 @@ div.CodeMirror-dragcursors {
 
 /* Help users use markselection to safely style text background */
 span.CodeMirror-selectedtext { background: none; }
+import * as codemirror from "L:\\Work\\_GIT\\GitHub\\NodeJs\\apps\\postcss-js-syntax-editor\\src\\components\\codemirror.css"; import {getCjsExportFromNamespace} from " commonjsHelpers"; export default getCjsExportFromNamespace(codemirror)
+/* sourceMappingURL=client/main.2357143325.css.map */

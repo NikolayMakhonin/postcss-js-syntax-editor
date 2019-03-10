@@ -1,10 +1,10 @@
 {
 	"background_color": "#ffffff",
 	"theme_color": "#aa1e1e",
-	"name": "TODO",
-	"short_name": "TODO",
+	"name": "Postcss-Js-Syntax-Editor",
+	"short_name": "Postcss-Js-Syntax-Editor",
 	"display": "minimal-ui",
-	"start_url": "/",
+	"start_url": "/postcss-js-syntax-editor",
 	"icons": [
 		{
 			"src": "svelte-logo-192.png",
