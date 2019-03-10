@@ -73,7 +73,7 @@ export class WebWorkerRunner {
 				messageId,
 				code: typeof codeOrFunc === 'function'
 					? `(${codeOrFunc.toString()})();`
-					: `(${codeOrFunc})`
+					: `${codeOrFunc}`
 			})
 
 			return request

@@ -53,7 +53,7 @@
 
 				js = JSON5.stringify(JSON.parse(js), null, 4)
 
-				return js
+				return `(${js})`
 			} catch (ex) {
 				return ex.toString()
 			}

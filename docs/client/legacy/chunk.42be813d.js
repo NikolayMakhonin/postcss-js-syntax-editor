@@ -9457,7 +9457,7 @@ var WebWorkerRunner = function WebWorkerRunner() {
     requests[messageId] = request;
     worker.postMessage({
       messageId: messageId,
-      code: typeof codeOrFunc === 'function' ? "(".concat(codeOrFunc.toString(), ")();") : "(".concat(codeOrFunc, ")")
+      code: typeof codeOrFunc === 'function' ? "(".concat(codeOrFunc.toString(), ")();") : "".concat(codeOrFunc)
     });
     return request;
   }
@@ -10165,7 +10165,7 @@ function createConverter() {
         stringifier: postcss.syntaxes.js.stringify
       }).css;
       js = lib.stringify(JSON.parse(js), null, 4);
-      return js;
+      return "(".concat(js, ")");
     } catch (ex) {
       return ex.toString();
     }
@@ -10674,4 +10674,4 @@ assign(Index.prototype, protoDev);
 Index.prototype._checkReadOnly = function _checkReadOnly(newState) {};
 
 export default Index;
-//# sourceMappingURL=chunk.d354684e.js.map
+//# sourceMappingURL=chunk.42be813d.js.map

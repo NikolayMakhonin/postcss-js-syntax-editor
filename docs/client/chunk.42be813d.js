@@ -4173,7 +4173,7 @@ promiseResolve=resolve,promiseReject=reject
 promise);var promiseResolve,promiseReject,promise
 ;return requests[messageId]=request,
 worker.postMessage({messageId:messageId,
-code:"function"==typeof codeOrFunc?"(".concat(codeOrFunc.toString(),")();"):"(".concat(codeOrFunc,")")
+code:"function"==typeof codeOrFunc?"(".concat(codeOrFunc.toString(),")();"):"".concat(codeOrFunc)
 }),request},worker.onmessage=function(e){
 emitResult(e.data)},worker.onerror=function(e){
 for(var messageId in requests)Object.prototype.hasOwnProperty.call(requests,messageId)&&emitResult({
@@ -4409,9 +4409,9 @@ return o}}
 ;return{cssToJs:function(css){try{
 var js=postcssNoPlugins.process(css,{
 stringifier:postcss.syntaxes.js.stringify}).css
-;return js=lib.stringify(JSON.parse(js),null,4)
-}catch(ex){return ex.toString()}},
-jsToCss:function(_x,_x2){
+;return js=lib.stringify(JSON.parse(js),null,4),
+"(".concat(js,")")}catch(ex){return ex.toString()}
+},jsToCss:function(_x,_x2){
 return _jsToCss.apply(this,arguments)}}
 ;function _jsToCss(){
 return(_jsToCss=_asyncToGenerator(_regeneratorRuntime.mark(function _callee(js,unnested){
@@ -4611,4 +4611,4 @@ assign(JsCssConverter.prototype,protoDev),JsCssConverter.prototype._checkReadOnl
 assign(Index.prototype,protoDev),
 Index.prototype._checkReadOnly=function(newState){}
 ;export default Index;
-//# sourceMappingURL=chunk.d354684e.js.map
+//# sourceMappingURL=chunk.42be813d.js.map

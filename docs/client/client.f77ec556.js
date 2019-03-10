@@ -186,8 +186,8 @@ this._mount(options.target,options.anchor)}}
 assign(Error$1.prototype,protoDev),Error$1.prototype._checkReadOnly=function(newState){}
 
 ;var d,root_component,current_token,root_preload,root_data,store,target,ignore=[/^\/blog.json$/,/^\/blog\/([^\/]+?).json$/],components=[{
-js:function(){return import("./chunk.d354684e.js")
-},css:["chunk.d354684e.css"]},{
+js:function(){return import("./chunk.42be813d.js")
+},css:["chunk.42be813d.css"]},{
 js:function(){return import("./chunk.39972887.js")
 },css:[]},{
 js:function(){return import("./chunk.98ca78f2.js")
@@ -395,4 +395,4 @@ var _location=location,hash=_location.hash,href=_location.href
 var target$$1=select_route(new URL(location.href))
 ;if(target$$1)return navigate(target$$1,uid,!1,hash)
 }});
-//# sourceMappingURL=client.5d0e9ab5.js.map
+//# sourceMappingURL=client.f77ec556.js.map
