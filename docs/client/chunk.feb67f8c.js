@@ -906,8 +906,8 @@ text=createText("\n\n"),jscssconverter._fragment.c(),this.h()
 },l:function(nodes){
 text=claimText(nodes,"\n\n"),jscssconverter._fragment.l(nodes),
 this.h()},h:function(){
-document.title="Sapper project template"},
-m:function(target,anchor){
+document.title="Postcss-Js-Syntax to CSS converter"
+},m:function(target,anchor){
 insert(target,text,anchor),jscssconverter._mount(target,anchor)
 },p:noop,d:function(detach){
 detach&&detachNode(text),jscssconverter.destroy(detach)
@@ -921,4 +921,4 @@ assign(JsCssConverter.prototype,protoDev),JsCssConverter.prototype._checkReadOnl
 assign(Index.prototype,protoDev),
 Index.prototype._checkReadOnly=function(newState){}
 ;export default Index;
-//# sourceMappingURL=chunk.349a8603.js.map
+//# sourceMappingURL=chunk.feb67f8c.js.map

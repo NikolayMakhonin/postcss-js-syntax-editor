@@ -2798,7 +2798,7 @@ function create_main_fragment$2(component, ctx) {
       this.h();
     },
     h: function hydrate() {
-      document.title = "Sapper project template";
+      document.title = "Postcss-Js-Syntax to CSS converter";
     },
     m: function mount(target, anchor) {
       insert(target, text, anchor);
@@ -2844,4 +2844,4 @@ assign(Index.prototype, protoDev);
 Index.prototype._checkReadOnly = function _checkReadOnly(newState) {};
 
 export default Index;
-//# sourceMappingURL=chunk.349a8603.js.map
+//# sourceMappingURL=chunk.feb67f8c.js.map
