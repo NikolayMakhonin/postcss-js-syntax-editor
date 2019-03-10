@@ -60,8 +60,9 @@
 		}
 
 		async function jsToCss(js, unnested) {
-			const jsObject = await webWorkerRunner.run(js)
+			let jsObject
 			try {
+				jsObject = await webWorkerRunner.run(js)
 				const result = (unnested ? postcssNested : postcssNoPlugins).process(js, {
 					parser           : postcss.syntaxes.js.parse,
 					requireFromString: () => jsObject

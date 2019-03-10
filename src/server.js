@@ -15,7 +15,7 @@ const server = express()
 server.disable('x-powered-by')
 server
 	.use(
-		'/sapper/page',
+		'/postcss-js-syntax-editor',
 		compression({threshold: 0}),
 		sirv('static', {dev}),
 		sapper.middleware()

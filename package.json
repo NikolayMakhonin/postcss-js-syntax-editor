@@ -20,7 +20,7 @@
     "node": ">= 8.6.0"
   },
   "scripts": {
-    "clean": "shx rm -rf {dist,tmp,__sapper__,*.log}",
+    "clean": "shx rm -rf {dist,docs,tmp,__sapper__,*.log}",
     "precommit": "npm run test:all:coverage",
     "prepare": "npm run build",
     "prepublishOnly": "npm run test:all",
@@ -51,8 +51,8 @@
     "ci:karma": "karma start env/karma/karma.conf.ci.js",
     "ci": "npm run lint && npm run coverage:ci && ncat tmp/coverage/all/lcov/**/lcov.info --banner \"\" | coveralls",
     "deploy": "npm run build:sapper:export && node env/deploy/deploy",
-    "build:sapper": "sapper build --legacy --basepath /sapper/page",
-    "build:sapper:export": "sapper export dist/sapper/export --legacy --basepath /sapper/page",
+    "build:sapper": "sapper build --legacy --basepath /postcss-js-syntax-editor",
+    "build:sapper:export": "shx rm -rf docs && sapper export docs --legacy --basepath /postcss-js-syntax-editor && shx mv docs/postcss-js-syntax-editor/* docs && shx rm -rf docs/postcss-js-syntax-editor",
     "sapper:dev": "node env/sapper/dev.js",
     "test:sapper": "run-p --race dev cy:run",
     "sapper:start": "node __sapper__/build",
