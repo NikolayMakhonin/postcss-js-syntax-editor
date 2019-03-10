@@ -7,11 +7,11 @@ export class WebWorkerRunner {
 				delete data.code
 				try {
 					data.result = await self.eval(code)
-					postMessage(data)
+					postMessage(JSON.stringify(data))
 				} catch (ex) {
 					console.error('WebWorkerRunner error:', ex, '\r\ncode: ', code)
 					data.error = ex.stack || ex.toString()
-					postMessage(data)
+					postMessage(JSON.stringify(data))
 				}
 			}
 		}
@@ -30,11 +30,11 @@ export class WebWorkerRunner {
 						return self.eval(code);
 					}).then(function (_resp) {
 						data.result = _resp;
-						postMessage(data);
+						postMessage(JSON.stringify(data));
 					}).catch(function (ex) {
 						console.error('WebWorkerRunner error:', ex, '\r\ncode: ', code)
 						data.error = ex.stack || ex.toString();
-						postMessage(data);
+						postMessage(JSON.stringify(data));
 					});
 				}).then(function () {});
 			};
@@ -93,7 +93,7 @@ export class WebWorkerRunner {
 		}
 
 		worker.onmessage = function (e) {
-			emitResult(e.data)
+			emitResult(JSON.parse(e.data))
 		}
 
 		worker.onerror = function (e) {

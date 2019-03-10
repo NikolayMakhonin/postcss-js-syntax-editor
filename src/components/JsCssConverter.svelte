@@ -2,7 +2,12 @@
 	<thead>
 	<tr>
 		<th>JS</th>
-		<th>CSS&nbsp;&nbsp;&nbsp;<label><input type="checkbox" bind:checked="unnested">un nested</label></th>
+		<th>
+			<span>CSS&nbsp;&nbsp;&nbsp;</span>
+			<span><label><input type="checkbox" bind:checked="plugins.nested">un nested</label></span>
+			<span><label><input type="checkbox" bind:checked="plugins.nano">optimized</label></span>
+			<span><label><input type="checkbox" bind:checked="plugins.beautify">beautify</label></span>
+		</th>
 	</tr>
 	</thead>
 	<tbody>
@@ -18,7 +23,6 @@
 </table>
 
 <script>
-	import '../../modules/postcss-for-browser/postcss.min'
 	import JSON5 from 'json5'
 	import {WebWorkerRunner} from '../main/browser/helpers/web-worker-runner'
 
@@ -37,8 +41,19 @@
 
 		const webWorkerRunner = new WebWorkerRunner()
 
-		const postcssNoPlugins = postcss([])
-		const postcssNested = postcss([postcss.plugins.nested])
+		const postcssPlugins = {
+			nested: postcss.plugins.nested(),
+			nano  : postcss.plugins.nano({
+				preset: [
+					'default', {
+						discardComments: {
+							removeAll: true,
+						},
+					}
+				],
+			}),
+			beautify: postcss.plugins.beautify(),
+		}
 
 		return {
 			cssToJs,
@@ -47,26 +62,30 @@
 
 		function cssToJs(css) {
 			try {
-				let js = postcssNoPlugins.process(css, {
+				let js = postcss().process(css, {
 					stringifier: postcss.syntaxes.js.stringify
 				}).css
 
 				js = JSON5.stringify(JSON.parse(js), null, 4)
 
-				return `(${js})`
+				return `;(${js})`
 			} catch (ex) {
 				return ex.toString()
 			}
 		}
 
-		async function jsToCss(js, unnested) {
+		async function jsToCss(js, plugins) {
 			let jsObject
 			try {
 				jsObject = await webWorkerRunner.run(js)
-				const result = (unnested ? postcssNested : postcssNoPlugins).process(js, {
-					parser           : postcss.syntaxes.js.parse,
-					requireFromString: () => jsObject
-				})
+				const result = await postcss(Object.keys(plugins)
+					.filter(o => plugins[o])
+					.map(o => postcssPlugins[o])
+					.filter(o => o))
+					.process(js, {
+						parser           : postcss.syntaxes.js.parse,
+						requireFromString: () => jsObject
+					})
 
 				return result.css
 			} catch (ex) {
@@ -136,7 +155,14 @@
 	}
 }
 `,
-					unnested: false
+				}
+			}
+
+			if (!data.plugins) {
+				data.plugins = {
+					nested  : false,
+					nano    : true,
+					beautify: true
 				}
 			}
 
@@ -146,8 +172,8 @@
 			if (!this.converting) {
 				this.converting = true
 				try {
-					if (changed.js || changed.unnested) {
-						this.set({css: await converter.jsToCss(this.get().js, this.get().unnested)})
+					if (changed.js || changed.plugins) {
+						this.set({css: await converter.jsToCss(this.get().js, this.get().plugins)})
 					} else if (changed.css) {
 						this.set({js: converter.cssToJs(this.get().css)})
 					}

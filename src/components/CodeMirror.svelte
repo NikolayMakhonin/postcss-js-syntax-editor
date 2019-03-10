@@ -117,6 +117,10 @@
 
 		oncreate() {
 			codemirrorPromise.then(CodeMirror => {
+				CodeMirror.defaults.smartIndent = false
+				CodeMirror.keyMap.default['Shift-Tab'] = 'indentLess'
+				CodeMirror.keyMap.default.Tab = 'indentMore'
+			
 				this.updating = false
 
 				this.observe('mode', () => {
