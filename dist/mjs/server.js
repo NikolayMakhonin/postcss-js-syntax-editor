@@ -13,7 +13,7 @@ var dev = NODE_ENV === 'development'; // const isExport = process.env.npm_lifecy
 
 var server = express();
 server.disable('x-powered-by');
-server.use('/sapper/page', compression({
+server.use('/postcss-js-syntax-editor', compression({
   threshold: 0
 }), sirv('static', {
   dev: dev
