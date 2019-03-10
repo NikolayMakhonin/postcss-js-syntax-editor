@@ -52,7 +52,13 @@
 					}
 				],
 			}),
-			beautify: postcss.plugins.beautify(),
+			beautify: postcss.plugins.beautify({
+				cascade         : false,
+				indentChar      : '\t',
+				indentSize      : 1,
+				trimLeadingZero : false,
+				zeroLengthNoUnit: true
+			}),
 		}
 
 		return {

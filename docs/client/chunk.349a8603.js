@@ -649,7 +649,9 @@ return o}}
 nested:postcss.plugins.nested(),
 nano:postcss.plugins.nano({preset:["default",{
 discardComments:{removeAll:!0}}]}),
-beautify:postcss.plugins.beautify()};return{
+beautify:postcss.plugins.beautify({cascade:!1,
+indentChar:"\t",indentSize:1,trimLeadingZero:!1,
+zeroLengthNoUnit:!0})};return{
 cssToJs:function(css){try{
 var js=postcss().process(css,{
 stringifier:postcss.syntaxes.js.stringify}).css
@@ -919,4 +921,4 @@ assign(JsCssConverter.prototype,protoDev),JsCssConverter.prototype._checkReadOnl
 assign(Index.prototype,protoDev),
 Index.prototype._checkReadOnly=function(newState){}
 ;export default Index;
-//# sourceMappingURL=chunk.4ca7fdba.js.map
+//# sourceMappingURL=chunk.349a8603.js.map

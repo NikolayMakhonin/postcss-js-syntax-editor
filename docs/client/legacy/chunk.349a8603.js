@@ -2194,7 +2194,13 @@ function createConverter() {
         }
       }]
     }),
-    beautify: postcss.plugins.beautify()
+    beautify: postcss.plugins.beautify({
+      cascade: false,
+      indentChar: '\t',
+      indentSize: 1,
+      trimLeadingZero: false,
+      zeroLengthNoUnit: true
+    })
   };
   return {
     cssToJs: cssToJs,
@@ -2838,4 +2844,4 @@ assign(Index.prototype, protoDev);
 Index.prototype._checkReadOnly = function _checkReadOnly(newState) {};
 
 export default Index;
-//# sourceMappingURL=chunk.4ca7fdba.js.map
+//# sourceMappingURL=chunk.349a8603.js.map
