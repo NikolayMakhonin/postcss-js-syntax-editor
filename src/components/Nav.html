@@ -4,15 +4,18 @@ nav
 		li
 			a(class="{segment === undefined ? 'selected' : ''}", href=".") home
 		li
-			a(class="{segment === 'about' ? 'selected' : ''}", href="about") about
-		//
-			for the blog link, we're using rel=prefetch so that Sapper prefetches
-			the blog data when we hover over the link or tap it on a touchscreen
-		li
-			a(rel="prefetch", class="{segment === 'blog' ? 'selected' : ''}", href="blog") blog
+			h1
+				a(target=_blank, href="https://github.com/NikolayMakhonin/postcss-js-syntax") Postcss-Js-Syntax to CSS converter
 </template>
 
 <style>
+	h1 {
+		font-size: 1em;
+		color: black;
+		padding: 0;
+		margin: 0;
+	}
+
 	nav {
 		border-bottom: 1px solid rgba(170,30,30,0.1);
 		font-weight: 300;
