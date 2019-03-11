@@ -120,7 +120,7 @@
 				CodeMirror.defaults.smartIndent = false
 				CodeMirror.keyMap.default['Shift-Tab'] = 'indentLess'
 				CodeMirror.keyMap.default.Tab = 'indentMore'
-			
+
 				this.updating = false
 
 				this.observe('mode', () => {
@@ -195,8 +195,6 @@
 					lineNumbers   : true,
 					lineWrapping  : true,
 					indentWithTabs: true,
-					indentUnit    : 2,
-					tabSize       : 2,
 					value         : code,
 					mode          : modes[mode] || {
 						name: mode

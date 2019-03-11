@@ -72,7 +72,14 @@
 					stringifier: postcss.syntaxes.js.stringify
 				}).css
 
-				js = JSON5.stringify(JSON.parse(js), null, 4)
+				js = JSON5
+					.stringify(JSON.parse(js), {
+						space: '\t',
+						quote: '`'
+					})
+					.replace(/`([^`]*)`(\s*:)/gs, (...match) => {
+						return `'${match[1].replace(/'/g, '\\\'')}'${match[2]}`
+					})
 
 				return `;(${js})`
 			} catch (ex) {
@@ -176,8 +183,14 @@
 		},
 		async onstate({changed, current, previous}) {
 			if (!this.converting) {
-				this.converting = true
+				if (this.converting == null) {
+					// prevent calculate at start
+					this.converting = false
+					return
+				}
+
 				try {
+					this.converting = true
 					if (changed.js || changed.plugins) {
 						this.set({css: await converter.jsToCss(this.get().js, this.get().plugins)})
 					} else if (changed.css) {
@@ -209,6 +222,10 @@
 		table-layout: fixed;
 		border-spacing: 0.3em;
 		padding: 0;
+	}
+
+	.editor tr {
+		height: 100%;
 	}
 
 	.editor td {

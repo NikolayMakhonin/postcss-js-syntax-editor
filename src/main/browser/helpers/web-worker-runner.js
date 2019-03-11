@@ -1,23 +1,26 @@
+import esprima from 'esprima'
+
 export class WebWorkerRunner {
 	constructor() {
 		// eslint-disable-next-line
 		function workerCode() {
 			onmessage = async function ({data}) {
-				const code = data.code
+				const {code} = data
 				delete data.code
 				try {
 					data.result = await self.eval(code)
 					postMessage(JSON.stringify(data))
 				} catch (ex) {
-					console.error('WebWorkerRunner error:', ex, '\r\ncode: ', code)
+					// console.error('WebWorkerRunner error:', ex, '\r\ncode: ', code)
 					data.error = ex.stack || ex.toString()
+					data.errorType = ex.constructor ? ex.constructor.name : 'unknown'
 					postMessage(JSON.stringify(data))
 				}
 			}
 		}
 
 		/* eslint-disable */
-		// use: https://babeljs.io/en/repl.html#?babili=false&browsers=&build=&builtIns=false&spec=false&loose=false&code_lz=PYOwtgpgzlCGDmEAEBeJsoE8QGMkDMBXXAFwEtQkAKCASiQG8AoJVpHUKEpSGBCAJIATVEggA6IbBKwA2gAYAuizYcQXdsCHI0EqTNkBGZWyQkATpkYrTrAPR2xUADZkQJALRCycAEbOIDxAIAA9PV2CkEGAPCAA3WGcbWzUNc2hCZ240WAB3WDJuWQByeMTixSoObVpk0wAHYC4AWWg4RCpedsEhABoozOd-9KhM7gB-JBGx8RJgAGULN3gqegAuKYys2tMAX3ZpHAALalD6Zls2Rpa2_k7bxGF-0PEuWBwAayQAH2-xENmCyWIBWtH6IEGOzYuyYMKAA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=es2015%2Creact%2Cstage-2%2Cenv&prettier=false&targets=&version=7.3.4
+		// use: https://babeljs.io/en/repl.html#?babili=false&browsers=&build=&builtIns=false&spec=false&loose=false&code_lz=JAj2DsFsFMGdYIYHNoAIC8qGwJ7gMaoBmArgQC4CWEqAFAN4AmC5CAvgJSr0BQII-CLHLdBjaGwypmrPv3EAbaOTQyEAOjHQ5IcgCcc3HSDXq9cEgpGYEAdwSURsaAqLroANwQLaWjseAAB1BhAFk4RBRaACkAZQB5ADl1YT1KcCRKIhxaNQ5_fmBJfBZ8AAs6aAAPLl5C4EFwWFAldz09UD1aAHIAdWgAI17OgGtoPQAlMnBx1HGOvQAuboAaOaq17oAdPS2CUHFF1FXUPwDTec6papTWfBHUAB9H9fVyUFj9dKRaAsKL9qdN44QJoTA3RqpEj4d56AD86nACBgAWCYQiyGgMQSyVS3yyOTyfxAbB0pKAA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=es2015%2Creact%2Cstage-2&prettier=false&targets=&version=7.3.4
 		// and: https://xem.github.io/terser-online/
 		function workerCodeBabelify() {
 			onmessage = function onmessage(_ref) {
@@ -32,8 +35,9 @@ export class WebWorkerRunner {
 						data.result = _resp;
 						postMessage(JSON.stringify(data));
 					}).catch(function (ex) {
-						console.error('WebWorkerRunner error:', ex, '\r\ncode: ', code)
+						// console.error('WebWorkerRunner error:', ex, '\r\ncode: ', code);
 						data.error = ex.stack || ex.toString();
+						data.errorType = ex.constructor ? ex.constructor.name : 'unknown'
 						postMessage(JSON.stringify(data));
 					});
 				}).then(function () {});
@@ -41,7 +45,7 @@ export class WebWorkerRunner {
 		}
 		/* eslint-enable */
 
-		const blob = new Blob([`(${workerCodeBabelify.toString()})();`], {type: 'application/javascript'})
+		const blob = new Blob([`"use strict"; (${workerCodeBabelify.toString()})();`], {type: 'application/javascript'})
 		const worker = new Worker(URL.createObjectURL(blob))
 
 		function createOutsidePromise() {
@@ -69,24 +73,42 @@ export class WebWorkerRunner {
 			const request = createOutsidePromise()
 			requests[messageId] = request
 
+			const code = typeof codeOrFunc === 'function'
+				? `(${codeOrFunc.toString()})();`
+				: `${codeOrFunc}`
+
+			// const exVarName = `ex${(Number.MAX_SAFE_INTEGER * Math.random()).toString(36)}`
+			// code = `try { ;${code}; } catch (${exVarName}) { throw new Error(${exVarName}.stack || ${exVarName}.toString()) }`
+
+			request.code = code
+
 			worker.postMessage({
 				messageId,
-				code: typeof codeOrFunc === 'function'
-					? `(${codeOrFunc.toString()})();`
-					: `${codeOrFunc}`
+				code
 			})
 
 			return request
 		}
 
-		function emitResult({messageId, error, result}) {
+		function emitResult({
+			messageId, error, errorType, result
+		}) {
 			const request = requests[messageId]
 			if (!request) {
 				return
 			}
 			delete requests[messageId]
 			if (error) {
-				request.reject(error)
+				if (errorType === 'SyntaxError') {
+					try {
+						request.reject(new Error(`${error.stack || error}\r\n\r\n`
+							+ `Parse code report:\r\n${esprima.parseScript(request.code)}`))
+					} catch (ex) {
+						request.reject(ex)
+					}
+				} else {
+					request.reject(error)
+				}
 			} else {
 				request.resolve(result)
 			}
