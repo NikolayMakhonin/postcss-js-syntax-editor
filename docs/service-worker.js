@@ -234,7 +234,7 @@ asyncGeneratorStep(gen,resolve,reject,_next,_throw,"next",value)
 }function _throw(err){
 asyncGeneratorStep(gen,resolve,reject,_next,_throw,"throw",err)
 }_next(void 0)})}
-},ASSETS="cache".concat(1552316784498),to_cache=["client/chunk.b0ae64c3.js","client/chunk.6cb2acd8.js","client/chunk.42d23e7c.js","client/chunk.0037cdcb.js","client/chunk.fdadb65b.js","client/chunk.4f4de8d6.js","client/client.3d50d1d4.js","client/chunk.578c1fec.js","client/chunk.13989c80.js"].concat(["/service-worker-index.html","favicon.png","global.css","great-success.png","manifest.json","polyfills/bundle.js","postcss.js","postcss.min.js","styles.css","styles.css.map","svelte-logo-192.png","svelte-logo-512.png"]),cached=new Set(to_cache)
+},ASSETS="cache".concat(1552972987070),to_cache=["client/chunk.b0ae64c3.js","client/chunk.6cb2acd8.js","client/chunk.fdadb65b.js","client/chunk.0037cdcb.js","client/chunk.42d23e7c.js","client/chunk.4f4de8d6.js","client/client.6fb16f54.js","client/chunk.868c2e19.js","client/chunk.13989c80.js"].concat(["/service-worker-index.html","favicon.png","global.css","great-success.png","manifest.json","polyfills/bundle.js","postcss.js","postcss.min.js","styles.css","styles.css.map","svelte-logo-192.png","svelte-logo-512.png"]),cached=new Set(to_cache)
 ;self.addEventListener("install",function(event){
 event.waitUntil(caches.open(ASSETS).then(function(cache){
 return cache.addAll(to_cache)}).then(function(){
@@ -271,7 +271,7 @@ return _ref.apply(this,arguments)}}()))
 }),self.addEventListener("fetch",function(event){
 if("GET"===event.request.method&&!event.request.headers.has("range")){
 var url=new URL(event.request.url)
-;url.protocol.startsWith("http")&&(url.hostname===self.location.hostname&&url.port!==self.location.port||(url.host===self.location.host&&cached.has(url.pathname)?event.respondWith(caches.match(event.request)):"only-if-cached"!==event.request.cache&&event.respondWith(caches.open("offline".concat(1552316784498)).then(function(){
+;url.protocol.startsWith("http")&&(url.hostname===self.location.hostname&&url.port!==self.location.port||(url.host===self.location.host&&cached.has(url.pathname)?event.respondWith(caches.match(event.request)):"only-if-cached"!==event.request.cache&&event.respondWith(caches.open("offline".concat(1552972987070)).then(function(){
 var _ref2=asyncToGenerator(regenerator.mark(function _callee2(cache){
 var response,_response
 ;return regenerator.wrap(function(_context2){

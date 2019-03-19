@@ -509,9 +509,9 @@ function goto(href) {
 var ignore = [/^\/blog.json$/, /^\/blog\/([^\/]+?).json$/];
 var components = [{
   js: function js() {
-    return import('./chunk.578c1fec.js');
+    return import('./chunk.868c2e19.js');
   },
-  css: ["chunk.578c1fec.css"]
+  css: ["chunk.868c2e19.css"]
 }, {
   js: function js() {
     return import('./chunk.6cb2acd8.js');
@@ -1139,4 +1139,4 @@ function handle_popstate(event) {
 start({
   target: document.querySelector('#sapper')
 });
-//# sourceMappingURL=client.d81f59a6.js.map
+//# sourceMappingURL=client.20e48bd3.js.map

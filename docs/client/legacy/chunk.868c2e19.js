@@ -10444,7 +10444,7 @@ function createConverter() {
       js = lib.stringify(JSON.parse(js), {
         space: '\t',
         quote: '`'
-      }).replace(/`([\0-_a-\uFFFF]*)`([\t-\r \xA0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000\uFEFF]*:)/g, function () {
+      }).replace(/`([\0-_a-z\|~-\uFFFF]*?)`([\t-\r \xA0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000\uFEFF]*:)/g, function () {
         for (var _len = arguments.length, match = new Array(_len), _key = 0; _key < _len; _key++) {
           match[_key] = arguments[_key];
         }
@@ -11098,4 +11098,4 @@ assign(Index.prototype, protoDev);
 Index.prototype._checkReadOnly = function _checkReadOnly(newState) {};
 
 export default Index;
-//# sourceMappingURL=chunk.578c1fec.js.map
+//# sourceMappingURL=chunk.868c2e19.js.map

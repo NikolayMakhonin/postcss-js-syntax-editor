@@ -77,7 +77,7 @@
 						space: '\t',
 						quote: '`'
 					})
-					.replace(/`([^`]*)`(\s*:)/gs, (...match) => {
+					.replace(/`([^`{}]*?)`(\s*:)/gs, (...match) => {
 						return `'${match[1].replace(/'/g, '\\\'')}'${match[2]}`
 					})
 
